@@ -33,10 +33,8 @@ su - $USER -c "git clone https://github.com/zsh-users/zsh-autosuggestions $ZSH_C
 # Install zsh-syntax-highlighting plugin
 su - $USER -c "git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting"
 
-# Add plugins to .zshrc if not already present
-if ! grep -q "plugins=(.*fzf.*zsh-autosuggestions.*zsh-syntax-highlighting.*)" $USER_HOME/.zshrc; then
-  sed -i 's/plugins=(/plugins=(fzf zsh-autosuggestions zsh-syntax-highlighting /' $USER_HOME/.zshrc
-fi
+# Enable plugins in .zshrc
+su - $USER -c "sed -i 's/plugins=(/plugins=(git fzf zsh-autosuggestions zsh-syntax-highlighting /' $USER_HOME/.zshrc"
 
 # Source the plugins in .zshrc
 echo "source $ZSH_CUSTOM/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh" >> $USER_HOME/.zshrc
