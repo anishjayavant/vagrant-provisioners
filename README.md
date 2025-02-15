@@ -1,2 +1,3 @@
-# vagrant-provisioners
-Provisioner files to be used in Vagrant box setups
+# Provisioners Repository
+
+This repository contains provisioning scripts to set up a development environment
