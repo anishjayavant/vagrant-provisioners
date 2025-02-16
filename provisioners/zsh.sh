@@ -45,3 +45,5 @@ sudo chown -R $USER:$USER $ZSH_CUSTOM
 
 # Reload .zshrc to apply changes
 su - $USER -c "source $USER_HOME/.zshrc"
+
+echo "Zsh installation completed."

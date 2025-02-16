@@ -7,11 +7,13 @@ Vagrant.configure("2") do |config|
   
     # Use QEMU as the provider
     config.vm.provider "qemu" do |q|
-        q.ssh_port = "9999" 
+        q.ssh_port = "2201" 
         q.cpu = "host"
         q.cpus = 4
-        q.memory = "2048"
+        q.memory = "4G"
         q.graphics = "none"
+        q.ssh_auto_correct = true
+        q.machine_type = "virt,accel=hvf,highmem=off"
     end
   
     # Provisioning scripts
