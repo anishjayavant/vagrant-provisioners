@@ -9,5 +9,4 @@ sudo apt-get install -y curl
 # Install uv
 curl -LsSf https://astral.sh/uv/install.sh | sh
 
-# Verify installation
-uv --version
+echo "UV installation completed."

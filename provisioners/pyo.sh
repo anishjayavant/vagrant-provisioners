@@ -4,6 +4,7 @@
 USER="vagrant"
 USER_HOME="/home/$USER"
 PROJECT_DIR="$USER_HOME/rust_python_project"
+source $USER_HOME/.zshrc
 
 # Ensure uv is installed
 if ! command -v uv &> /dev/null; then
@@ -27,3 +28,5 @@ maturin --version
 
 # Deactivate the virtual environment
 deactivate
+
+echo "Pyo installation completed."

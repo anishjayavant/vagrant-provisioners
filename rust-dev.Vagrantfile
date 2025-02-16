@@ -32,8 +32,8 @@ Vagrant.configure("2") do |config|
 
     # Clone the project repository if provided
     mkdir -p /home/vagrant/projects
-    if [ -n "$PROJECT_REPO" ]; then
-      git clone "$PROJECT_REPO" /home/vagrant/projects
+    if [ -n "$PROJECT_REPO_URL" ]; then
+      git clone "$PROJECT_REPO_URL" /home/vagrant/projects
       chown -R vagrant:vagrant /home/vagrant/projects
     else
       echo "No project repository URL provided. Skipping project clone."
@@ -49,6 +49,12 @@ Vagrant.configure("2") do |config|
 
     # Docker
     config.vm.provision "shell", inline: "/tmp/vagrant-provisioners/provisioners/docker.sh"
+
+    # UV
+    config.vm.provision "shell", inline: "/tmp/vagrant-provisioners/provisioners/uv.sh"
+
+    # Pyo
+    config.vm.provision "shell", inline: "/tmp/vagrant-provisioners/provisioners/pyo.sh"
 
     # Clean up
     config.vm.provision "shell", inline: "rm -rf /tmp/vagrant-provisioners"
