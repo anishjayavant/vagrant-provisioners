@@ -56,6 +56,8 @@ Vagrant.configure("2") do |config|
     # Reboot
     config.vm.provision "shell", inline: "echo 'Rebooting...'", reboot: true
 
+    # Print a message that provisioning is complete
+    config.vm.provision "shell", inline: "echo 'Provisioning complete. You can now SSH into the VM using `vagrant ssh`. Or run the following command `vagrant ssh-config | tee -a ~/.ssh/config`'"
   
   end
   
