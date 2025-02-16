@@ -53,6 +53,9 @@ Vagrant.configure("2") do |config|
     # Clean up
     config.vm.provision "shell", inline: "rm -rf /tmp/vagrant-provisioners"
 
+    # Reboot
+    config.vm.provision "shell", inline: "echo 'Rebooting...'", reboot: true
+
   
   end
   
