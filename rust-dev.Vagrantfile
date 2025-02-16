@@ -50,12 +50,6 @@ Vagrant.configure("2") do |config|
     # Docker
     config.vm.provision "shell", inline: "/tmp/vagrant-provisioners/provisioners/docker.sh"
 
-    # UV
-    config.vm.provision "shell", inline: "/tmp/vagrant-provisioners/provisioners/uv.sh"
-
-    # Pyo
-    config.vm.provision "shell", inline: "/tmp/vagrant-provisioners/provisioners/pyo.sh"
-
     # Clean up
     config.vm.provision "shell", inline: "rm -rf /tmp/vagrant-provisioners"
 
