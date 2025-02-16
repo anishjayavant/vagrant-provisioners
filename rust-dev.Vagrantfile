@@ -45,13 +45,13 @@ Vagrant.configure("2") do |config|
     config.vm.provision "shell", inline: "/tmp/vagrant-provisioners/provisioners/zsh.sh"
 
     # Rust
-    # config.vm.provision "shell", inline: "/tmp/vagrant-provisioners/provisioners/rust.sh"
+    config.vm.provision "shell", inline: "/tmp/vagrant-provisioners/provisioners/rust.sh"
 
     # Docker
-    # config.vm.provision "shell", path: "/tmp/vagrant-provisioners/provisioners/docker.sh"
+    config.vm.provision "shell", inline: "/tmp/vagrant-provisioners/provisioners/docker.sh"
 
     # Clean up
-    # config.vm.provision "shell", inline: "rm -rf /tmp/vagrant-provisioners"
+    config.vm.provision "shell", inline: "rm -rf /tmp/vagrant-provisioners"
 
   
   end

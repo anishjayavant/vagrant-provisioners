@@ -18,6 +18,3 @@ su - $USER -c "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s
 if [ -f "$CARGO_ENV" ]; then
   source "$CARGO_ENV"
 fi
-
-# Verify installation
-rustc --version
