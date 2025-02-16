@@ -28,7 +28,7 @@ Vagrant.configure("2") do |config|
     ssh-keyscan -H github.com >> ~/.ssh/known_hosts
 
     # Clone the provisioners repository
-    git clone git@github.com:anishjayavant/vagrant-provisioners.git /tmp/vagrant-provisioners/provisioners
+    git clone git@github.com:anishjayavant/vagrant-provisioners.git /tmp/vagrant-provisioners
 
     # Clone the project repository if provided
     mkdir -p /home/vagrant/projects
@@ -41,8 +41,11 @@ Vagrant.configure("2") do |config|
     SHELL
 
     # 2. Run the provisioners
+    # Zsh
+    config.vm.provision "shell", inline: "/tmp/vagrant-provisioners/provisioners/zsh.sh"
+
     # Rust
-    # config.vm.provision "shell", path: "/tmp/vagrant-provisioners/provisioners/rust.sh"
+    # config.vm.provision "shell", inline: "/tmp/vagrant-provisioners/provisioners/rust.sh"
 
     # Docker
     # config.vm.provision "shell", path: "/tmp/vagrant-provisioners/provisioners/docker.sh"
