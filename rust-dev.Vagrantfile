@@ -46,7 +46,7 @@ Vagrant.configure("2") do |config|
     fi
 
     # Add Git server to known hosts
-    ssh-keyscan -H github.com >> ~/.ssh/known_hosts
+    ssh-keyscan -H github.com | tee -a /home/vagrant/.ssh/known_hosts
 
     # Clone the provisioners repository
     git clone git@github.com:anishjayavant/vagrant-provisioners.git /tmp/vagrant-provisioners
