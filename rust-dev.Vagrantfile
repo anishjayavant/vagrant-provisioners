@@ -46,7 +46,7 @@ Vagrant.configure("2") do |config|
     fi
 
     # Add Git server to known hosts
-    ssh-keyscan -H github.com | tee -a /home/vagrant/.ssh/known_hosts
+    ssh-keyscan -H github.com >> ~/.ssh/known_hosts
 
     # Clone the provisioners repository
     git clone git@github.com:anishjayavant/vagrant-provisioners.git /tmp/vagrant-provisioners
@@ -85,6 +85,11 @@ Vagrant.configure("2") do |config|
     rm -rf /tmp/vagrant-provisioners
     # Remove the dotfiles repository
     rm -rf /tmp/dotfiles
+
+    # Run ssh-keyscan to add GitHub to known hosts for /home/vagrant/.ssh/known_hosts
+    ssh-keyscan -H github.com >> /home/vagrant/.ssh/known_hosts
+    # Change ownership of the .ssh directory and known_hosts file
+    chown -R vagrant:vagrant /home/vagrant/.ssh
     echo "Cleanup complete."
     SHELL
 
