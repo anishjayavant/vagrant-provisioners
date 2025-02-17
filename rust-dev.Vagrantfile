@@ -1,3 +1,20 @@
+require 'getoptlong'
+
+# Parse command line arguments
+opts = GetoptLong.new(
+  ['--project-repo-url', GetoptLong::REQUIRED_ARGUMENT]
+)
+
+# Define the project repository URL
+project_repo_url = nil
+opts.ordering = GetoptLong::REQUIRE_ORDER
+opts.each do |opt, arg|
+  case opt
+  when '--project-repo-url'
+    project_repo_url = arg
+  end
+end
+
 # Vagrantfile for Rust development using QEMU
 Vagrant.configure("2") do |config|    
     # Define the Ubuntu VM (using aarch64-compatible image)
@@ -19,7 +36,8 @@ Vagrant.configure("2") do |config|
     # Provisioning scripts
     # 1. Setup SSH forwarding and clone the provisioners repository
     config.ssh.forward_agent = true
-    config.vm.provision "shell", inline: <<-SHELL
+    # Set the project repo URL as an environment variable
+    config.vm.provision "shell", env: { PROJECT_REPO_URL: project_repo_url }, inline: <<-SHELL    
     # Ensure SSH agent forwarding is working
     if [ -z "$SSH_AUTH_SOCK" ]; then
         echo "SSH agent forwarding is not enabled. Please ensure your SSH agent is running and forwarding is enabled."
@@ -35,7 +53,8 @@ Vagrant.configure("2") do |config|
     # Clone the project repository if provided
     mkdir -p /home/vagrant/projects
     if [ -n "$PROJECT_REPO_URL" ]; then
-      git clone "$PROJECT_REPO_URL" /home/vagrant/projects
+      cd /home/vagrant/projects
+      git clone "$PROJECT_REPO_URL"
       chown -R vagrant:vagrant /home/vagrant/projects
     else
       echo "No project repository URL provided. Skipping project clone."

@@ -52,12 +52,8 @@ if [ -z "$VAGRANT_VAGRANTFILE" ]; then
   exit 1
 fi
 
-# Export environment variables for Vagrantfile
-export PROJECT_REPO_URL="$PROJECT_REPO_URL"
-export VAGRANT_VAGRANTFILE="$VAGRANT_VAGRANTFILE"
-
 # Pass environment variables explicitly to Vagrant
-VAGRANT_ENV="PROJECT_REPO_URL=$PROJECT_REPO_URL VAGRANT_VAGRANTFILE=$VAGRANT_VAGRANTFILE"
+VAGRANT_ENV="PROJECT_REPO_URL=$PROJECT_REPO_URL"
 
 # Start the Vagrant environment with the specified provider
 echo "Starting development environment..."
@@ -70,7 +66,7 @@ MAX_RETRIES=5
 attempt=1
 while [ $attempt -le $MAX_RETRIES ]; do
   echo "Attempt $attempt of $MAX_RETRIES to start Vagrant environment..."
-  if vagrant up --provider=$PROVIDER; then
+  if vagrant --project-repo-url=$PROJECT_REPO_URL up --provider=$PROVIDER; then
     echo "Vagrant environment started successfully."
     break
   else
@@ -82,6 +78,6 @@ done
 
 if [ $attempt -gt $MAX_RETRIES ]; then
   echo "Error: Failed to start Vagrant environment after $MAX_RETRIES attempts."
-  vagrant destroy -f
+  $VAGRANT_ENV vagrant destroy -f
   exit 1
 fi
