@@ -78,6 +78,6 @@ done
 
 if [ $attempt -gt $MAX_RETRIES ]; then
   echo "Error: Failed to start Vagrant environment after $MAX_RETRIES attempts."
-  $VAGRANT_ENV vagrant destroy -f
+  vagrant destroy -f
   exit 1
 fi

@@ -37,7 +37,8 @@ Vagrant.configure("2") do |config|
     # 1. Setup SSH forwarding and clone the provisioners repository
     config.ssh.forward_agent = true
     # Set the project repo URL as an environment variable
-    config.vm.provision "shell", env: { PROJECT_REPO_URL: project_repo_url }, inline: <<-SHELL    
+    config.vm.provision "shell", env: { PROJECT_REPO_URL: project_repo_url }, inline: <<-SHELL
+    echo "Setting up Git..."
     # Ensure SSH agent forwarding is working
     if [ -z "$SSH_AUTH_SOCK" ]; then
         echo "SSH agent forwarding is not enabled. Please ensure your SSH agent is running and forwarding is enabled."
@@ -50,6 +51,12 @@ Vagrant.configure("2") do |config|
     # Clone the provisioners repository
     git clone git@github.com:anishjayavant/vagrant-provisioners.git /tmp/vagrant-provisioners
 
+    # Clone the dotfiles repository and update the gitconfig on the target machine
+    git clone git@github.com:anishjayavant/dotfiles.git /tmp/dotfiles
+
+    # Copy the .gitconfig from the dotfiles repository into the home directory
+    cp /tmp/dotfiles/.gitconfig /home/vagrant/.gitconfig
+
     # Clone the project repository if provided
     mkdir -p /home/vagrant/projects
     if [ -n "$PROJECT_REPO_URL" ]; then
@@ -59,6 +66,7 @@ Vagrant.configure("2") do |config|
     else
       echo "No project repository URL provided. Skipping project clone."
     fi
+    echo "Git setup complete."
     SHELL
 
     # 2. Run the provisioners
@@ -72,7 +80,13 @@ Vagrant.configure("2") do |config|
     config.vm.provision "shell", inline: "/tmp/vagrant-provisioners/provisioners/docker.sh"
 
     # Clean up
-    config.vm.provision "shell", inline: "rm -rf /tmp/vagrant-provisioners"
+    config.vm.provision "shell", inline: <<-SHELL
+    # Remove the provisioners repository
+    rm -rf /tmp/vagrant-provisioners
+    # Remove the dotfiles repository
+    rm -rf /tmp/dotfiles
+    echo "Cleanup complete."
+    SHELL
 
     # Reboot
     config.vm.provision "shell", inline: "echo 'Rebooting...'", reboot: true

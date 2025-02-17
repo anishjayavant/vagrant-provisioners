@@ -1,5 +1,7 @@
 #!/bin/zsh
 
+echo "Installing Rust toolchain..."
+
 # Variables
 USER="vagrant"
 USER_HOME="/home/$USER"
@@ -19,4 +21,4 @@ if [ -f "$CARGO_ENV" ]; then
   source "$CARGO_ENV"
 fi
 
-echo "Rust installation completed."
+echo "Rust toolchain installation completed."

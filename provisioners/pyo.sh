@@ -1,5 +1,7 @@
 #!/bin/zsh
 
+echo "Installing Pyo..."
+
 # Variables
 USER="vagrant"
 USER_HOME="/home/$USER"

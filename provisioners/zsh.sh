@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo "Installing Zsh and Oh My Zsh..."
+
 # Variables
 USER="vagrant"
 USER_HOME="/home/$USER"

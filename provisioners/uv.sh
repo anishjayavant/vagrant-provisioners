@@ -1,5 +1,7 @@
 #!/bin/zsh
 
+echo "Installing UV..."
+
 # Update package list
 sudo apt-get update
 
