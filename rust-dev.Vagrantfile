@@ -53,43 +53,26 @@ Vagrant.configure("2") do |config|
 
     # Clone the dotfiles repository and update the gitconfig on the target machine
     git clone git@github.com:anishjayavant/dotfiles.git /tmp/dotfiles
-
-    # Copy the .gitconfig from the dotfiles repository into the home directory
-    cp /tmp/dotfiles/git/.gitconfig /home/vagrant/.gitconfig
-
-    # Copy the GPG configuration from the dotfiles repository into the home directory
-    mkdir -p /home/vagrant/.gnupg
-    # Change ownership of the .gnupg directory
-    chown -R vagrant:vagrant /home/vagrant/.gnupg    
-    cp /tmp/dotfiles/gpg/gpg.conf /home/vagrant/.gnupg/gpg.conf
-    cp /tmp/dotfiles/gpg/gpg-agent-ubuntu.conf /home/vagrant/.gnupg/gpg-agent.conf
-    # Set permissions to 700 for the vagrant user
-    chmod 700 /home/vagrant/.gnupg
-    # Set permissions to 600 for the files
-    chmod 600 /home/vagrant/.gnupg/gpg.conf
-    chmod 600 /home/vagrant/.gnupg/gpg-agent.conf
-
-    # Clone the project repository if provided
-    mkdir -p /home/vagrant/projects
-    if [ -n "$PROJECT_REPO_URL" ]; then
-      cd /home/vagrant/projects
-      git clone "$PROJECT_REPO_URL"
-      chown -R vagrant:vagrant /home/vagrant/projects
-    else
-      echo "No project repository URL provided. Skipping project clone."
-    fi
-    echo "Git setup complete."
     SHELL
 
     # 2. Run the provisioners
     # Zsh
     config.vm.provision "shell", inline: "/tmp/vagrant-provisioners/provisioners/zsh.sh"
 
+    # Git
+    config.vm.provision "shell", inline: "/tmp/vagrant-provisioners/provisioners/git.sh"
+
+    # Project setup
+    config.vm.provision "shell", inline: "/tmp/vagrant-provisioners/provisioners/project.sh", env: { PROJECT_REPO_URL: project_repo_url } 
+
     # Rust
     config.vm.provision "shell", inline: "/tmp/vagrant-provisioners/provisioners/rust.sh"
 
     # Docker
     config.vm.provision "shell", inline: "/tmp/vagrant-provisioners/provisioners/docker.sh"
+
+    # VSCode
+    config.vm.provision "shell", inline: "/tmp/vagrant-provisioners/provisioners/vscode.sh"
 
     # Clean up
     config.vm.provision "shell", inline: <<-SHELL

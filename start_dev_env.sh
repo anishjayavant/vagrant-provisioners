@@ -16,6 +16,10 @@ usage() {
 
 # Function to copy GPG keys to the VM
 gpg_copy_to_vm() {
+
+  echo "Importing GPG keys..."
+  # TODO add interactive prompt with 5s timeout
+
   GPG_SECRET_KEY="$HOME/gpg-secret-key.asc"
   GPG_PUBLIC_KEY="$HOME/gpg-public-key.asc"
 
@@ -97,7 +101,7 @@ while [ $attempt -le $MAX_RETRIES ]; do
     echo "Copying GPG keys to the Vagrant VM..."
     gpg_copy_to_vm
     echo "GPG keys copied successfully."
-    echo "Run `echo "test" | gpg --clearsign --pinentry-mode loopback` on the VM one-time to enter the passphrase and enable signing."
+    echo "Run $(echo "test" | gpg --clearsign --pinentry-mode loopback) on the VM one-time to enter the passphrase and enable signing."
     echo "Vagrant environment is ready for use."
     break
   else
