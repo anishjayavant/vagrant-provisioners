@@ -18,4 +18,9 @@ chmod 700 /home/vagrant/.gnupg
 chmod 600 /home/vagrant/.gnupg/gpg.conf
 chmod 600 /home/vagrant/.gnupg/gpg-agent.conf
 
+# Copy gpg.sh to the home directory
+cp /tmp/dotfiles/provisioners/gpg.sh /home/vagrant/gpg.sh
+# Change ownership of the gpg.sh script
+chown vagrant:vagrant /home/vagrant/gpg.sh
+
 echo "Git configuration and GPG keys setup complete."
