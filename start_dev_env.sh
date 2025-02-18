@@ -104,7 +104,7 @@ MAX_RETRIES=5
 attempt=1
 while [ $attempt -le $MAX_RETRIES ]; do
   echo "Attempt $attempt of $MAX_RETRIES to start Vagrant environment..."
-  if vagrant --project-repo-url=$PROJECT_REPO_URL up --provider=$PROVIDER; then
+  if vagrant --project-repo-url=$PROJECT_REPO_URL --code-commit-hash=$CODE_COMMIT_HASH up --provider=$PROVIDER; then
     echo "Vagrant environment started successfully."
     echo "Copying GPG keys to the Vagrant VM..."
     gpg_copy_to_vm

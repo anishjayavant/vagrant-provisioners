@@ -2,7 +2,8 @@ require 'getoptlong'
 
 # Parse command line arguments
 opts = GetoptLong.new(
-  ['--project-repo-url', GetoptLong::REQUIRED_ARGUMENT]
+  ['--project-repo-url', GetoptLong::REQUIRED_ARGUMENT],
+  ['--code-commit-hash', GetoptLong::REQUIRED_ARGUMENT]
 )
 
 # Define the project repository URL and code commit hash
