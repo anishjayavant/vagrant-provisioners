@@ -3,6 +3,12 @@
 # Note this script assumes that dotfiles have been checked out to /tmp/dotfiles in a previous step
 
 echo "Setting up Visual Studio Code on the VM..."
+
+if [ -z "$CODE_COMMIT_HASH" ]; then
+  echo "Error: Commit hash for Visual Studio Code Server is required."
+  exit 1
+fi
+
 DOTFILES_REPO="/tmp/dotfiles"
 
 # Install wget
@@ -27,7 +33,7 @@ cp $DOTFILES_REPO/vscode/keybindings.json /home/vagrant/.config/Code/User/keybin
 
 # Install VSCode server
 echo "Installing Visual Studio Code Server..."
-wget -O /tmp/vscode-server.tar.gz 'https://code.visualstudio.com/sha/download?build=stable&os=linux-arm64'
+wget -O /tmp/vscode-server.tar.gz 'https://update.code.visualstudio.com/commit/$CODE_COMMIT_HASH/server-linux-arm64/stable'
 # Make the .vscode-server directory
 mkdir -p /home/vagrant/.vscode-server
 tar -xzf /tmp/vscode-server.tar.gz -C /home/vagrant/.vscode-server --strip-components=1

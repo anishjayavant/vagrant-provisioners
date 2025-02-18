@@ -5,13 +5,16 @@ opts = GetoptLong.new(
   ['--project-repo-url', GetoptLong::REQUIRED_ARGUMENT]
 )
 
-# Define the project repository URL
+# Define the project repository URL and code commit hash
 project_repo_url = nil
+code_commit_hash = nil
 opts.ordering = GetoptLong::REQUIRE_ORDER
 opts.each do |opt, arg|
   case opt
   when '--project-repo-url'
-    project_repo_url = arg
+    project_repo_url = arg  
+  when '--code-commit-hash'
+    code_commit_hash = arg
   end
 end
 
@@ -72,7 +75,7 @@ Vagrant.configure("2") do |config|
     config.vm.provision "shell", inline: "/tmp/vagrant-provisioners/provisioners/docker.sh"
 
     # VSCode
-    config.vm.provision "shell", inline: "/tmp/vagrant-provisioners/provisioners/vscode.sh"
+    config.vm.provision "shell", inline: "/tmp/vagrant-provisioners/provisioners/vscode.sh", env: { CODE_COMMIT_HASH: code_commit_hash }
 
     # Clean up
     config.vm.provision "shell", inline: <<-SHELL

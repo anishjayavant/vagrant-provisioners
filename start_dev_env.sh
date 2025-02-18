@@ -4,6 +4,7 @@
 PROJECT_REPO_URL=""
 PROVIDER="qemu"
 VAGRANT_VAGRANTFILE=""
+CODE_COMMIT_HASH="e54c774e0add60467559eb0d1e229c6452cf8447"
 
 # Function to display usage
 usage() {
@@ -76,20 +77,27 @@ if [ -z "$PROJECT_REPO_URL" ]; then
   exit 1
 fi
 
+# Validate Code commit hash
+if [ -z "$CODE_COMMIT_HASH" ]; then
+  echo "Error: Commit hash for Visual Studio Code Server is required."
+  exit 1
+fi
+
 # Validate Vagrantfile path
 if [ -z "$VAGRANT_VAGRANTFILE" ]; then
   echo "Error: Path to the Vagrantfile is required."
   exit 1
 fi
 
-# Pass environment variables explicitly to Vagrant
-VAGRANT_ENV="PROJECT_REPO_URL=$PROJECT_REPO_URL"
+# Get the commit hash for the Visual Studio Code Server
+CODE_COMMIT_HASH=$(code --version | sed -n '2p')
 
 # Start the Vagrant environment with the specified provider
 echo "Starting development environment..."
 echo "Project Repository URL: $PROJECT_REPO_URL"
 echo "Vagrant Provider: $PROVIDER"
 echo "Vagrantfile Path: $VAGRANT_VAGRANTFILE"
+echo "VSCode Commit Hash: $CODE_COMMIT_HASH"
 
 # Retry vagrant up up to 5 times if it fails
 MAX_RETRIES=5
