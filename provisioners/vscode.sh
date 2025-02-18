@@ -2,8 +2,16 @@
 
 # Note this script assumes that dotfiles have been checked out to /tmp/dotfiles in a previous step
 
-echo "Installing Visual Studio Code..."
+echo "Setting up Visual Studio Code on the VM..."
 DOTFILES_REPO="/tmp/dotfiles"
+
+# Install wget
+echo "Installing wget..."
+apt-get install -y wget
+
+# Installing dependencies
+echo "Installing dependencies..."
+apt-get install -y libx11-xcb1 libxcb-dri3-0 libdrm2 libgbm1 libnss3 libxkbfile1 libsecret-1-0 libgtk-3-0 libxss1 libasound2
 
 # Make VSCode settings directory
 mkdir -p /home/vagrant/.config/Code/User
@@ -19,10 +27,14 @@ cp $DOTFILES_REPO/vscode/keybindings.json /home/vagrant/.config/Code/User/keybin
 
 # Install VSCode server
 echo "Installing Visual Studio Code Server..."
-curl -fsSL https://code.visualstudio.com/sha/download?build=stable &
-os=linux-x64 | tar -xz -C /home/vagrant/.vscode-server
+wget -O /tmp/vscode-server.tar.gz 'https://code.visualstudio.com/sha/download?build=stable&os=linux-arm64'
+# Make the .vscode-server directory
+mkdir -p /home/vagrant/.vscode-server
+tar -xzf /tmp/vscode-server.tar.gz -C /home/vagrant/.vscode-server --strip-components=1
 # Change ownership of the .vscode-server directory
 chown -R vagrant:vagrant /home/vagrant/.vscode-server
+# Remove the downloaded tarball
+rm /tmp/vscode-server.tar.gz
 echo "Visual Studio Code Server installed."
 
 # Install extensions
@@ -39,7 +51,7 @@ if [ -f "$DOTFILES_REPO/vscode/extensions.txt" ]; then
     # Install extensions using the code binary
     while IFS= read -r extension; do
         echo "Installing VSCode extension $extension..."
-        $CODE_BIN --install-extension "$extension" --force
+        sudo -u vagrant $CODE_BIN --install-extension "$extension" --force
     done <"$DOTFILES_REPO/vscode/extensions.txt"
 else
     echo "No extensions list found in the dotfiles repository."
