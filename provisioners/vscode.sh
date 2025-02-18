@@ -33,7 +33,7 @@ cp $DOTFILES_REPO/vscode/keybindings.json /home/vagrant/.config/Code/User/keybin
 
 # Install VSCode server
 echo "Installing Visual Studio Code Server..."
-wget -O /tmp/vscode-server.tar.gz 'https://update.code.visualstudio.com/commit:$CODE_COMMIT_HASH/server-linux-arm64/stable'
+wget -O /tmp/vscode-server.tar.gz "https://update.code.visualstudio.com/commit:$CODE_COMMIT_HASH/server-linux-arm64/stable"
 # Make the .vscode-server directory
 mkdir -p /home/vagrant/.vscode-server
 tar -xzf /tmp/vscode-server.tar.gz -C /home/vagrant/.vscode-server --strip-components=1
