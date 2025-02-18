@@ -48,7 +48,7 @@ echo "Visual Studio Code Server installed."
 if [ -f "$DOTFILES_REPO/vscode/extensions.txt" ]; then
     mkdir -p /home/vagrant/vscode
     cp $DOTFILES_REPO/vscode/extensions.txt /home/vagrant/vscode/extensions.txt
-    cp $DOTFILES_REPO/vscode/install-extensions.sh /home/vagrant/vscode/install-extensions.sh
+    cp $DOTFILES_REPO/vscode/install_extensions.sh /home/vagrant/vscode/install_extensions.sh
     chown vagrant:vagrant /home/vagrant/vscode
 fi
 
