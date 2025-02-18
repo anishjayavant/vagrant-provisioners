@@ -18,7 +18,7 @@ end
 # Vagrantfile for Rust development using QEMU
 Vagrant.configure("2") do |config|    
     # Define the Ubuntu VM (using aarch64-compatible image)
-    config.vm.define "ubuntu"
+    config.vm.define "rust-dev"
     config.vm.box = "perk/ubuntu-2204-arm64"
     config.vm.hostname = "rust-dev"
   
