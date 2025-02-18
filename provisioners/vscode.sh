@@ -5,8 +5,8 @@
 echo "Setting up Visual Studio Code on the VM..."
 
 if [ -z "$CODE_COMMIT_HASH" ]; then
-  echo "Error: Commit hash for Visual Studio Code Server is required."
-  exit 1
+    echo "Error: Commit hash for Visual Studio Code Server is required."
+    exit 1
 fi
 
 DOTFILES_REPO="/tmp/dotfiles"
@@ -43,24 +43,13 @@ chown -R vagrant:vagrant /home/vagrant/.vscode-server
 rm /tmp/vscode-server.tar.gz
 echo "Visual Studio Code Server installed."
 
-# Install extensions
+# Copy the extensions list; these will have to be installed
+# on the integrated terminal by design. See https://github.com/microsoft/vscode-remote-release/issues/1042#issuecomment-515691156
 if [ -f "$DOTFILES_REPO/vscode/extensions.txt" ]; then
-    echo "Installing VSCode extensions..."
-    # Locate the code binary
-    CODE_BIN=$(find /home/vagrant/.vscode-server/bin -name "code" -type f)
-
-    if [ -z "$CODE_BIN" ]; then
-        echo "VSCode Server binary not found!"
-        exit 1
-    fi
-
-    # Install extensions using the code binary
-    while IFS= read -r extension; do
-        echo "Installing VSCode extension $extension..."
-        sudo -u vagrant $CODE_BIN --install-extension "$extension" --force
-    done <"$DOTFILES_REPO/vscode/extensions.txt"
-else
-    echo "No extensions list found in the dotfiles repository."
+    mkdir -p /home/vagrant/vscode
+    cp $DOTFILES_REPO/vscode/extensions.txt /home/vagrant/vscode/extensions.txt
+    cp $DOTFILES_REPO/vscode/install-extensions.sh /home/vagrant/vscode/install-extensions.sh
+    chown vagrant:vagrant /home/vagrant/vscode
 fi
 
 echo "Visual Studio Code setup complete."
