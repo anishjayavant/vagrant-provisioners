@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/zsh
 
 # Default values
 PROJECT_REPO_URL=""
@@ -14,29 +14,55 @@ usage() {
   exit 1
 }
 
+# Function to copy GPG keys to the VM
+gpg_copy_to_vm() {
+  GPG_SECRET_KEY="$HOME/gpg-secret-key.asc"
+  GPG_PUBLIC_KEY="$HOME/gpg-public-key.asc"
+
+  # Export GPG keys if they don't exist
+  if [ ! -f "$GPG_SECRET_KEY" ]; then
+    echo "Exporting GPG keys..."
+    gpg --export-secret-keys --armor --output "$GPG_SECRET_KEY"
+    gpg --export --armor --output "$GPG_PUBLIC_KEY"
+  fi
+
+  # Copy GPG keys to the VM using vagrant file provisioner
+  echo "Copying GPG keys to the Vagrant VM..."
+  vagrant ssh -c "mkdir -p /home/vagrant/.gnupg"
+  vagrant ssh -c "cat > /home/vagrant/gpg-secret-key.asc" <"$GPG_SECRET_KEY"
+  vagrant ssh -c "cat > /home/vagrant/gpg-public-key.asc" <"$GPG_PUBLIC_KEY"
+
+  # Import the GPG keys inside the VM
+  vagrant ssh -c "
+    gpg --import /home/vagrant/gpg-public-key.asc && \
+    gpg --allow-secret-key-import --import /home/vagrant/gpg-secret-key.asc && \
+    rm /home/vagrant/gpg-public-key.asc /home/vagrant/gpg-secret-key.asc
+  "
+}
+
 # Parse command-line options
 while getopts ":u:r:f:h" opt; do
   case ${opt} in
-    u )
-      PROJECT_REPO_URL=$OPTARG
-      ;;
-    r )
-      PROVIDER=$OPTARG
-      ;;
-    f )
-      VAGRANT_VAGRANTFILE=$OPTARG
-      ;;
-    h )
-      usage
-      ;;
-    \? )
-      echo "Invalid option: -$OPTARG" >&2
-      usage
-      ;;
-    : )
-      echo "Option -$OPTARG requires an argument." >&2
-      usage
-      ;;
+  u)
+    PROJECT_REPO_URL=$OPTARG
+    ;;
+  r)
+    PROVIDER=$OPTARG
+    ;;
+  f)
+    VAGRANT_VAGRANTFILE=$OPTARG
+    ;;
+  h)
+    usage
+    ;;
+  \?)
+    echo "Invalid option: -$OPTARG" >&2
+    usage
+    ;;
+  :)
+    echo "Option -$OPTARG requires an argument." >&2
+    usage
+    ;;
   esac
 done
 
@@ -68,6 +94,11 @@ while [ $attempt -le $MAX_RETRIES ]; do
   echo "Attempt $attempt of $MAX_RETRIES to start Vagrant environment..."
   if vagrant --project-repo-url=$PROJECT_REPO_URL up --provider=$PROVIDER; then
     echo "Vagrant environment started successfully."
+    echo "Copying GPG keys to the Vagrant VM..."
+    gpg_copy_to_vm
+    echo "GPG keys copied successfully."
+    echo "Run `echo "test" | gpg --clearsign --pinentry-mode loopback` on the VM one-time to enter the passphrase and enable signing."
+    echo "Vagrant environment is ready for use."
     break
   else
     echo "Failed to start Vagrant environment. Retrying in 5 seconds..."
