@@ -55,11 +55,12 @@ Vagrant.configure("2") do |config|
     git clone git@github.com:anishjayavant/dotfiles.git /tmp/dotfiles
 
     # Copy the .gitconfig from the dotfiles repository into the home directory
-    cp /tmp/dotfiles/.gitconfig /home/vagrant/.gitconfig
+    cp /tmp/dotfiles/git/.gitconfig /home/vagrant/.gitconfig
 
     # Copy the GPG configuration from the dotfiles repository into the home directory
-    cp /tmp/dotfiles/.gnupg/gpg.conf /home/vagrant/.gnupg/gpg.conf
-    cp /tmp/dotfiles/.gnupg/gpg-agent-ubuntu.conf /home/vagrant/.gnupg/gpg-agent.conf
+    mkdir -p /home/vagrant/.gnupg
+    cp /tmp/dotfiles/gpg/gpg.conf /home/vagrant/.gnupg/gpg.conf
+    cp /tmp/dotfiles/gpg/gpg-agent-ubuntu.conf /home/vagrant/.gnupg/gpg-agent.conf
 
     # Clone the project repository if provided
     mkdir -p /home/vagrant/projects
