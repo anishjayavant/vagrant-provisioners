@@ -24,4 +24,8 @@ cp $DOTFILES_REPO/gpg/gpg.sh /home/vagrant/gpg.sh
 # Change ownership of the gpg.sh script
 chown vagrant:vagrant /home/vagrant/gpg.sh
 
+# Add the following to the .zshrc
+echo "export GPG_TTY=$(tty)" | tee -a /home/vagrant/.zshrc
+echo "gpgconf --launch gpg-agent" | tee -a /home/vagrant/.zshrc
+
 echo "Git configuration and GPG keys setup complete."
