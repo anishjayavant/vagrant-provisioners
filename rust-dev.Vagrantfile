@@ -75,6 +75,12 @@ Vagrant.configure("2") do |config|
     # Docker
     config.vm.provision "shell", inline: "/tmp/vagrant-provisioners/provisioners/docker.sh"
 
+    # UV
+    config.vm.provision "shell", inline: "/tmp/vagrant-provisioners/provisioners/uv.sh"
+
+    # Pre-commit
+    config.vm.provision "shell", inline: "/tmp/vagrant-provisioners/provisioners/pre-commit.sh"
+
     # VSCode
     config.vm.provision "shell", inline: "/tmp/vagrant-provisioners/provisioners/vscode.sh", env: { CODE_COMMIT_HASH: code_commit_hash }
 
