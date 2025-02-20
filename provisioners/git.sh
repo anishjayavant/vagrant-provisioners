@@ -9,8 +9,6 @@ cp $DOTFILES_REPO/git/.gitconfig /home/vagrant/.gitconfig
 
 # Copy the GPG configuration from the dotfiles repository into the home directory
 mkdir -p /home/vagrant/.gnupg
-# Change ownership of the .gnupg directory
-chown -R vagrant:vagrant /home/vagrant/.gnupg
 cp $DOTFILES_REPO/gpg/gpg.conf /home/vagrant/.gnupg/gpg.conf
 cp $DOTFILES_REPO/gpg/gpg-agent-ubuntu.conf /home/vagrant/.gnupg/gpg-agent.conf
 # Set permissions to 700 for the vagrant user
@@ -18,6 +16,8 @@ chmod 700 /home/vagrant/.gnupg
 # Set permissions to 600 for the files
 chmod 600 /home/vagrant/.gnupg/gpg.conf
 chmod 600 /home/vagrant/.gnupg/gpg-agent.conf
+# Change ownership of the .gnupg directory
+chown -R vagrant:vagrant /home/vagrant/.gnupg
 
 # Copy gpg.sh to the home directory
 cp $DOTFILES_REPO/gpg/gpg.sh /home/vagrant/gpg.sh
