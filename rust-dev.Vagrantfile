@@ -72,6 +72,9 @@ Vagrant.configure("2") do |config|
     # Rust
     config.vm.provision "shell", inline: "/tmp/vagrant-provisioners/provisioners/rust.sh"
 
+    # OpenSSL
+    config.vm.provision "shell", inline: "/tmp/vagrant-provisioners/provisioners/openssl.sh"
+
     # Docker
     config.vm.provision "shell", inline: "/tmp/vagrant-provisioners/provisioners/docker.sh"
 
