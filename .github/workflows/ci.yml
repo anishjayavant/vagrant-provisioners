@@ -19,5 +19,5 @@ jobs:
         run: sudo apt-get install -y shellcheck
       - name: Run ShellCheck
         run: |
-          find . -type f -name "*.zsh" -exec shellcheck -s sh {} +
+          find . -type f -name "*.sh" -exec shellcheck -s sh {} +
           find . -type f -name "*.sh" -exec zsh -n {} +
