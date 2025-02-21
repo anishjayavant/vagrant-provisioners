@@ -10,7 +10,7 @@ on:
 
 jobs:
   shellcheck:
-    name: Check for Secrets
+    name: shellcheck
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
@@ -19,5 +19,5 @@ jobs:
         run: sudo apt-get install -y shellcheck
       - name: Run ShellCheck
         run: |
-          find . -type f -name "*.sh" -exec shellcheck {} +
+          find . -type f -name "*.zsh" -exec shellcheck -s sh {} +
           find . -type f -name "*.sh" -exec zsh -n {} +
