@@ -87,6 +87,14 @@ The `start_dev_env` is a wrapper script that automates the process of starting t
 - `-r`: Specifies the provider to use for the Vagrant VM. Here, `qemu` is used as the provider. See the [Vagrant provider docs page](https://developer.hashicorp.com/vagrant/docs/providers) for more information.
 - `-f`: Specifies the path to the Vagrantfile to use. In this example, it is `./rust-dev.Vagrantfile`.
 
+### SSH to the box
+---
+Once provisioning completes, you'll see a message like this:
+```bash
+Provisioning complete. You can now SSH into the VM using `vagrant ssh`. Or run the following command `vagrant ssh-config | tee -a ~/.ssh/config`
+```
+Append or replace the configuration to `~/.ssh/config` and run `ssh rust-dev` !
+
 ### Tearing down the environment
 ---
 Simply run the following commands
