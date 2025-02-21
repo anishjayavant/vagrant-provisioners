@@ -17,8 +17,7 @@ jobs:
         uses: actions/checkout@v4
       - name: Install ShellCheck and Zsh for syntax checking
         run: |
-          sudo apt-get install -y shellcheck curl
-          sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+          sudo apt-get install -y shellcheck curl zsh          
       - name: Run ShellCheck
         run: |
           find . -type f -name "*.sh" -exec shellcheck -s sh {} +
