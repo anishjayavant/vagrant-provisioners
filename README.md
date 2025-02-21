@@ -1,9 +1,5 @@
 # Development Environment Setup
-This repository offers a collection of Vagrant provisioners designed to automate the setup of diverse development environments. With these provisioners, you can effortlessly configure virtual machines with the essential tools and settings for various programming languages and frameworks. 
-
-There are provisioner scripts included in this repository that configure various tools. Additionally, the repository provides an example `Vagrantfile` for Rust development and a `start_dev_env` wrapper script to simplify the initialization and provisioning process.
-
-The goal is to create fully codified, reproducible environments that can be spun up or torn down on demand — eliminating reliance on custom configurations tied to your local machine.
+This repository contains Vagrant provisioners to automate development environment setup. It includes scripts for configuring various tools, an example [`Vagrantfile` for Rust development](./rust-dev.Vagrantfile), and a [`start_dev_env`](./start_dev_env.sh) script for easy provisioning. The goal is to create reproducible environments that can be spun up or torn down on demand, avoiding reliance on local machine configurations.
 
 
 # Provisioners Repository
