@@ -10,6 +10,9 @@ if [ -n "$PROJECT_REPO_URL" ]; then
     cd /home/vagrant/projects
     git clone "$PROJECT_REPO_URL"
     chown -R vagrant:vagrant /home/vagrant/projects
+    # Add a zshrc alias called 'ph' to change to the project directory
+    echo "alias ph='cd /home/vagrant/projects/$(basename $PROJECT_REPO_URL .git)'" | tee -a /home/vagrant/.zshrc
+    echo "Project repository cloned to /home/vagrant/projects/$(basename $PROJECT_REPO_URL .git)"
 else
     echo "No project repository URL provided. Skipping project clone."
 fi
