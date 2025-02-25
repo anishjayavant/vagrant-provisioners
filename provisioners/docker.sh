@@ -16,5 +16,7 @@ sudo usermod -aG docker vagrant
 sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/bin/docker-compose
 # Apply executable permissions to the Docker Compose binary for all users
 sudo chmod +x /usr/bin/docker-compose
+# Enable BuildKit for Docker Compose by adding the following line to the .zshrc file for the vagrant user
+echo "export DOCKER_BUILDKIT=1" | tee -a /home/vagrant/.zshrc
 
 echo "Docker installation completed."
