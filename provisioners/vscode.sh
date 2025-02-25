@@ -13,11 +13,11 @@ DOTFILES_REPO="/tmp/dotfiles"
 
 # Install wget
 echo "Installing wget..."
-apt install -y wget
+apt-get install -y wget
 
 # Installing dependencies
 echo "Installing dependencies..."
-apt install -y libx11-xcb1 libxcb-dri3-0 libdrm2 libgbm1 libnss3 libxkbfile1 libsecret-1-0 libgtk-3-0 libxss1 libasound2
+apt-get install -y libx11-xcb1 libxcb-dri3-0 libdrm2 libgbm1 libnss3 libxkbfile1 libsecret-1-0 libgtk-3-0 libxss1 libasound2
 
 # Make VSCode settings directory
 mkdir -p /home/vagrant/.config/Code/User

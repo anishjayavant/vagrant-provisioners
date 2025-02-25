@@ -3,10 +3,10 @@
 echo "Installing UV..."
 
 # Update package list
-sudo apt update
+sudo apt-get update
 
 # Install dependencies
-sudo apt install -y curl
+sudo apt-get install -y curl
 
 # Install uv as the vagrant user
 sudo -u vagrant curl -LsSf https://astral.sh/uv/install.sh | sudo -u vagrant sh

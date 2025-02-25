@@ -8,13 +8,13 @@ USER_HOME="/home/$USER"
 ZSH_CUSTOM="$USER_HOME/.oh-my-zsh/custom"
 
 # Update package list
-sudo apt update
+sudo apt-get update
 
 # Install Zsh
-sudo apt install -y zsh
+sudo apt-get install -y zsh
 
 # Install curl and git if not present
-sudo apt install -y curl git
+sudo apt-get install -y curl git
 
 # Install Oh My Zsh for the vagrant user
 su - $USER -c "sh -c \"\$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)\" --unattended"
