@@ -78,6 +78,9 @@ Vagrant.configure("2") do |config|
     # Docker
     config.vm.provision "shell", inline: "/tmp/vagrant-provisioners/provisioners/docker.sh"
 
+    # PostgreSQL
+    config.vm.provision "shell", inline: "/tmp/vagrant-provisioners/provisioners/psql.sh"
+
     # UV
     config.vm.provision "shell", inline: "/tmp/vagrant-provisioners/provisioners/uv.sh"
 
