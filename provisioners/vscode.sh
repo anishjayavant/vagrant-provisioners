@@ -13,11 +13,11 @@ DOTFILES_REPO="/tmp/dotfiles"
 
 # Install wget
 echo "Installing wget..."
-apt-get install -y wget
+apt install -y wget
 
 # Installing dependencies
 echo "Installing dependencies..."
-apt-get install -y libx11-xcb1 libxcb-dri3-0 libdrm2 libgbm1 libnss3 libxkbfile1 libsecret-1-0 libgtk-3-0 libxss1 libasound2
+apt install -y libx11-xcb1 libxcb-dri3-0 libdrm2 libgbm1 libnss3 libxkbfile1 libsecret-1-0 libgtk-3-0 libxss1 libasound2
 
 # Make VSCode settings directory
 mkdir -p /home/vagrant/.config/Code/User
@@ -33,7 +33,7 @@ cp $DOTFILES_REPO/vscode/keybindings.json /home/vagrant/.config/Code/User/keybin
 
 # Install VSCode server
 echo "Installing Visual Studio Code Server..."
-wget  -q -O /tmp/vscode-server.tar.gz "https://update.code.visualstudio.com/commit:$CODE_COMMIT_HASH/server-linux-arm64/stable"
+wget -q -O /tmp/vscode-server.tar.gz "https://update.code.visualstudio.com/commit:$CODE_COMMIT_HASH/server-linux-arm64/stable"
 # Make the .vscode-server directory
 mkdir -p /home/vagrant/.vscode-server
 tar -xzf /tmp/vscode-server.tar.gz -C /home/vagrant/.vscode-server --strip-components=1

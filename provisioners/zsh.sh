@@ -8,13 +8,13 @@ USER_HOME="/home/$USER"
 ZSH_CUSTOM="$USER_HOME/.oh-my-zsh/custom"
 
 # Update package list
-sudo apt-get update
+sudo apt update
 
 # Install Zsh
-sudo apt-get install -y zsh
+sudo apt install -y zsh
 
 # Install curl and git if not present
-sudo apt-get install -y curl git
+sudo apt install -y curl git
 
 # Install Oh My Zsh for the vagrant user
 su - $USER -c "sh -c \"\$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)\" --unattended"
@@ -39,8 +39,8 @@ su - $USER -c "git clone https://github.com/zsh-users/zsh-syntax-highlighting.gi
 su - $USER -c "sed -i 's/plugins=(/plugins=(git fzf zsh-autosuggestions zsh-syntax-highlighting /' $USER_HOME/.zshrc"
 
 # Source the plugins in .zshrc
-echo "source $ZSH_CUSTOM/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh" >> $USER_HOME/.zshrc
-echo "source $ZSH_CUSTOM/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" >> $USER_HOME/.zshrc
+echo "source $ZSH_CUSTOM/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh" >>$USER_HOME/.zshrc
+echo "source $ZSH_CUSTOM/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" >>$USER_HOME/.zshrc
 
 # Set ownership of .oh-my-zsh directory to vagrant user
 sudo chown -R $USER:$USER $ZSH_CUSTOM

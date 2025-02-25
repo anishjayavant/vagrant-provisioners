@@ -8,10 +8,10 @@ USER_HOME="/home/$USER"
 CARGO_ENV="$USER_HOME/.cargo/env"
 
 # Update package list
-sudo apt-get update
+sudo apt update
 
 # Install dependencies
-sudo apt-get install -y curl build-essential
+sudo apt install -y curl build-essential
 
 # Install rustup (Rust installer and version manager) as the vagrant user
 su - $USER -c "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y"
