@@ -81,6 +81,9 @@ Vagrant.configure("2") do |config|
     # PostgreSQL
     config.vm.provision "shell", inline: "/tmp/vagrant-provisioners/provisioners/psql.sh"
 
+    # sqlx CLI
+    config.vm.provision "shell", inline: "/tmp/vagrant-provisioners/provisioners/sqlx.sh"
+
     # UV
     config.vm.provision "shell", inline: "/tmp/vagrant-provisioners/provisioners/uv.sh"
 
