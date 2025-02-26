@@ -21,8 +21,10 @@ sudo chmod +x /usr/bin/docker-compose
 echo "export DOCKER_BUILDKIT=1" | tee -a /home/$USER/.zshrc
 
 # Install buildx for the vagrant user
-curl -fsSL https://github.com/docker/buildx/releases/download/v0.21.0/buildx-v0.21.0.linux-arm64 -o /home/$USER/.docker/cli-plugins/docker-buildx
+sudo -u $USER mkdir -p /home/$USER/.docker/cli-plugins
+# Download the buildx binary for the ARM64 architecture
+sudo -u $USER curl -fsSL https://github.com/docker/buildx/releases/download/v0.21.0/buildx-v0.21.0.linux-arm64 -o /home/$USER/.docker/cli-plugins/docker-buildx
 # Grant executable permissions to the buildx binary for the vagrant user
-chmod +x /home/$USER/.docker/cli-plugins/docker-buildx
+sudo -u $USER chmod +x /home/$USER/.docker/cli-plugins/docker-buildx
 
 echo "Docker installation completed."
