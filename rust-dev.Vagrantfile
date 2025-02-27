@@ -93,6 +93,9 @@ Vagrant.configure("2") do |config|
     # VSCode
     config.vm.provision "shell", inline: "/tmp/vagrant-provisioners/provisioners/vscode.sh", env: { CODE_COMMIT_HASH: code_commit_hash }
 
+    # Wrk
+    config.vm.provision "shell", inline: "/tmp/vagrant-provisioners/provisioners/wrk.sh"
+
     # Clean up
     config.vm.provision "shell", inline: <<-SHELL
     # Remove the provisioners repository
