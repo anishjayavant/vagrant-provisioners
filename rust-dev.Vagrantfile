@@ -96,6 +96,9 @@ Vagrant.configure("2") do |config|
     # Wrk
     config.vm.provision "shell", inline: "/tmp/vagrant-provisioners/provisioners/wrk.sh"
 
+    # doctl
+    config.vm.provision "shell", inline: "/tmp/vagrant-provisioners/provisioners/doctl.sh"
+
     # Clean up
     config.vm.provision "shell", inline: <<-SHELL
     # Remove the provisioners repository
