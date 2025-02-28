@@ -66,9 +66,6 @@ Vagrant.configure("2") do |config|
     # Git
     config.vm.provision "shell", inline: "/tmp/vagrant-provisioners/provisioners/git.sh"
 
-    # Project setup
-    config.vm.provision "shell", inline: "/tmp/vagrant-provisioners/provisioners/project.sh", env: { PROJECT_REPO_URL: project_repo_url } 
-
     # Rust
     config.vm.provision "shell", inline: "/tmp/vagrant-provisioners/provisioners/rust.sh"
 
@@ -89,6 +86,9 @@ Vagrant.configure("2") do |config|
 
     # Pre-commit
     config.vm.provision "shell", inline: "/tmp/vagrant-provisioners/provisioners/pre-commit.sh"
+
+    # Project setup
+    config.vm.provision "shell", inline: "/tmp/vagrant-provisioners/provisioners/project.sh", env: { PROJECT_REPO_URL: project_repo_url } 
 
     # VSCode
     config.vm.provision "shell", inline: "/tmp/vagrant-provisioners/provisioners/vscode.sh", env: { CODE_COMMIT_HASH: code_commit_hash }
