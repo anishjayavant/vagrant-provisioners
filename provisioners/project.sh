@@ -13,6 +13,10 @@ if [ -n "$PROJECT_REPO_URL" ]; then
     # Add a zshrc alias called 'ph' to change to the project directory
     echo "alias ph='cd /home/vagrant/projects/$(basename $PROJECT_REPO_URL .git)'" | tee -a /home/vagrant/.zshrc
     echo "Project repository cloned to /home/vagrant/projects/$(basename $PROJECT_REPO_URL .git)"
+    # Run pre-commit install in the project directory
+    cd /home/vagrant/projects/$(basename $PROJECT_REPO_URL .git)
+    pre-commit install
+    echo "Pre-commit installed in the project repository."
 else
     echo "No project repository URL provided. Skipping project clone."
 fi
